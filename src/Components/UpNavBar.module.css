@@ -1,0 +1,45 @@
+.upNavContainer {
+    display: flex;
+    min-height: 70px;
+    position: sticky;
+    box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.menu {
+    display: none;
+}
+
+@media all and (max-width : 860px){ 
+    .menu{
+    display: unset !important ;
+    }
+    .uonorderedList{
+        flex-direction: column !important;
+    }
+}
+
+
+.logoContainer {
+    display: flex;
+}
+
+.logoName {
+    display: flex;
+    align-items: center;
+}
+
+/* UL  */
+.uonorderedList{
+    display: flex;
+    flex-direction: row;
+}
+
+.uonorderedList > div {
+    /* height: 60px; */
+    width: 80px;
+    padding: 5px;
+}
+
