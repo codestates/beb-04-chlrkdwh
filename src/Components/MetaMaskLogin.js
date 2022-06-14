@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 //css
 import styles from './MetaMaskLogin.module.css';
@@ -40,11 +41,11 @@ const MetaMaskLogin = ({cb}) => {
 
     return (
         <>
-            <button onClick={onClickConnect} className={`${styles.changeFont} w3-button w3-block`}  >
+            <Button variant="text" onClick={onClickConnect} className={`${styles.changeFont} w3-button w3-block`}  >
                 {
                 isMetaMask ?  (account==='' ? '지갑연결' : account)  : '메타마스크를 설치해야합니다'
                 }
-            </button>
+            </Button>
             {/* <button onClick={()=>{console.log(account)}}>Hi</button> */}
         </>
     )

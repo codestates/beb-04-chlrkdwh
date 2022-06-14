@@ -1,0 +1,7 @@
+.walletContainer > *:nth-child(odd) {
+    padding: 12px;
+}
+/* 
+.walletItem {
+    margin: 10px
+} */

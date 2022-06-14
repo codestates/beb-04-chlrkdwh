@@ -1,22 +1,31 @@
 import logo from './logo.svg';
-import './App.css';
 import PrimarySearchAppBar from './Components/UpNavBar';
 import Theme from './Pages/Test'
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
+import ConnectWallet from './Components/ConnectWallet';
+
+import styles from './App.module.css'
+import MetaMaskLogin from './Components/MetaMaskLogin';
 
 function App() {
+
   const theme = createTheme({
     zIndex: {
       drawer: 1000
     }
   })
+
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
         <PrimarySearchAppBar />
+        <div className={styles.appBody}>
+        <ConnectWallet metaMask={MetaMaskLogin}></ConnectWallet>
+        
 
-        <footer>
+        </div>
+        <footer className={styles.appFooter}>
         </footer>
       </div>
     </ThemeProvider>
