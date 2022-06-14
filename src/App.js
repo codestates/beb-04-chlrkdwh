@@ -7,8 +7,9 @@ import ConnectWallet from './Components/ConnectWallet';
 
 import styles from './App.module.css'
 import MetaMaskLogin from './Components/MetaMaskLogin';
-import  Home  from './Pages/Home'
+import Home from './Pages/Home'
 import Explore from './Pages/Explore';
+import Stats from './Pages/Stats'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -21,24 +22,21 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <PrimarySearchAppBar />
-        <div className={styles.appBody}>
-        {/* <ConnectWallet metaMask={MetaMaskLogin}></ConnectWallet> */}
-        {/* <Explore></Explore> */}
-        <BrowserRouter>
-          <Routes>
-              <Route path="/" element={<Home/>}/>
-              <Route path="explore" element={<Explore/>}/>
-          </Routes>
-        </BrowserRouter>
-        
-
-        </div>
-        <footer className={styles.appFooter}>
-        </footer>
-      </div>
-    </ThemeProvider>
+      <BrowserRouter>
+          <div className="App">
+            <PrimarySearchAppBar />
+            <div className={styles.appBody}>
+        <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/explore" element={<Explore />} />
+              <Route path='/stats' element={<Stats />} />
+        </Routes>
+            </div>
+            <footer className={styles.appFooter}>
+            </footer>
+          </div>
+      </BrowserRouter>
+    </ThemeProvider >
 
   );
 }

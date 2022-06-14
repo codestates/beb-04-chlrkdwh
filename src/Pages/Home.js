@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Stack, Typography, Box, Grid, CardMedia, Card } from '@mui/material'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Home() {
@@ -20,10 +21,15 @@ export default function Home() {
       })
       .catch((e) =>  console.error(e))
   }
+
+  const navigate = useNavigate();
+
   return (
     <div className='home' >
       <Box style={{height: '500px', marginBottom: '20px'}}>
-        <div style={{height: '90%', backgroundPosition:'center', backgroundImage:`url(${imgUrl})`, backgroundSize: 'cover', backgroundRepeat:'no-repeat', filter:'blur(20px)'}}></div>
+        <div style={{filter:'blur(20px)', opacity:'20%'}}>
+          <img src={imgUrl} style={{width: '95vw', height: '99vh', objectFit: 'cover'}}></img>
+        </div>
         <Grid container justifyContent="center" spacing={2} gap={5} mt={5} style={{zIndex: '2', position: 'absolute', top: '20%', left:'0%'}}>
           <Grid item xs={10} md={5}>
             <Typography variant='h4' component='div' gutterBottom>
@@ -34,7 +40,7 @@ export default function Home() {
             OpenSea is the world's first and largest NFT marketplace
             </Typography>
             <Stack direction='row' spacing={2} justifyContent='center' >
-              <Button variant='contained'>Explore</Button>
+              <Button variant='contained' onClick={()=>{navigate('/explore')}}>Explore</Button>
               <Button variant='contained'>Create</Button>
             </Stack>
             <Typography variant='h6' component='div' mt={2}>
