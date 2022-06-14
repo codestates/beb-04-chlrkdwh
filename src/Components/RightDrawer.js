@@ -51,6 +51,8 @@ export default function RightDrawer(props) {
         <Divider />
         <div class={styles.rowDiv}><Typography component="div" color='black' variant='h7'>Connect with one of our available wallet providers or create a new one.</Typography></div>
         {isLogined ? <></>: <ConnectWallet metaMask={MetaMaskLogin} />}   // 로그인 이후 (total balance 보여주기) : 로그인 이전 (연결 지갑 보여주기)
+
+        
         {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
