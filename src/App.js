@@ -1,14 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 import UpNavBar from './Components/UpNavBar';
-import Home from './Pages/Home';
-import Explore from './Pages/Explore';
+import Profile from './Components/Profile';
 
 function App() {
   return (
     <div className="App">
         <UpNavBar/>
-        <Home />
+      <body>
+        <Profile/>
+      </body>
     <footer>
     </footer>
     </div>
