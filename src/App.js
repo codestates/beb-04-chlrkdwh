@@ -3,14 +3,15 @@ import PrimarySearchAppBar from './Components/UpNavBar';
 import Theme from './Pages/Test'
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
-import ConnectWallet from './Components/ConnectWallet';
 
 import styles from './App.module.css'
-import MetaMaskLogin from './Components/MetaMaskLogin';
 import Home from './Pages/Home'
 import Explore from './Pages/Explore';
 import Stats from './Pages/Stats'
+import Profile from './Pages/Profile'
+import Login from './Pages/Login'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 
 function App() {
 
@@ -20,16 +21,20 @@ function App() {
     }
   })
 
+  const [isLogined, setIsLogined] = useState(false);
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
           <div className="App">
-            <PrimarySearchAppBar />
+            <PrimarySearchAppBar isLogined={isLogined} setIsLogined={setIsLogined} />
             <div className={styles.appBody}>
         <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/explore" element={<Explore />} />
               <Route path='/stats' element={<Stats />} />
+              <Route path='/profile' element={<Profile isLogined={isLogined} />}/>
+              <Route path='login' element={<Login />}/>
         </Routes>
             </div>
             <footer className={styles.appFooter}>

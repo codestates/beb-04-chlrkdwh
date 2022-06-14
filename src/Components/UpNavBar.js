@@ -5,20 +5,43 @@ import { IconButton, InputBase, Toolbar, Typography, Tabs, Tab, Paper, Button } 
 import { AccountBalanceWalletOutlined, AccountCircleOutlined, Search, Menu } from '@mui/icons-material';
 import { blueGrey } from '@mui/material/colors';
 import { Box } from '@mui/system';
-import styled from '@emotion/styled';
 
 import RightDrawer from './RightDrawer';
 import { useNavigate, Link } from 'react-router-dom';
 
 
-export default function OpenSeaAppBar() {
+export default function OpenSeaAppBar(props) {
 
-    const [tabVal, setTabVal] = React.useState();
-    const handleTabOnChange = (event, newVal) =>{
-        setTabVal(newVal);
-    }
+    const [tabVal, setTabVal] = React.useState(false);
+    let isLogined = props.isLogined;            // 기본값은 false, 로그인 됬을 시 account 주소를 넣자.
+    const setIsLogined = props.setIsLogined;
 
     const navigate = useNavigate();
+
+    const  handleClickAccountCircle = ()=>{
+         navigate(`/profile`, {state:{isLogined: isLogined}});
+    }
+
+
+    const handleAccountsChanged = (accounts)=>{
+        // console.log("acc changed", accounts)
+        if(accounts.length === 0){
+            setIsLogined(false);
+            // location.reload();
+        }
+        else if(accounts[0] !== isLogined){
+            setIsLogined(accounts[0]);
+        }
+    }
+
+    React.useEffect(()=>{
+        const { ethereum } = window;
+        if (ethereum && ethereum.isMetaMask) {
+            ethereum.on('accountsChanged',handleAccountsChanged)
+            ethereum.request({method: 'eth_accounts'}).then(accounts=>{ if(accounts.length>0) {setIsLogined(accounts[0]); }}) 
+        }          
+    },[]);
+
 
     return (
         <AppBar sx={{ backgroundColor: `white`, boxShadow: 2 }}>
@@ -50,10 +73,10 @@ export default function OpenSeaAppBar() {
 
                     </Tabs>
 
-                    <IconButton sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <IconButton sx={{ display: { xs: 'none', md: 'flex' } }} onClick={handleClickAccountCircle}>
                         <AccountCircleOutlined sx={{ color: blueGrey[500] }} />
                     </IconButton>
-                    <RightDrawer statusImage={AccountBalanceWalletOutlined} customSx={{ display: { xs: 'none', md: 'flex' } }} customTop={{ top: '64px' }} />
+                    <RightDrawer isLogined={isLogined} statusImage={AccountBalanceWalletOutlined} customSx={{ display: { xs: 'none', md: 'flex' } }} customTop={{ top: '64px' }} />
                     <IconButton sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <Menu sx={{ color: blueGrey[500] }} />
                     </IconButton>
