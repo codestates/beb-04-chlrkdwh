@@ -9,9 +9,10 @@ export default function NFTCard(props) {
   return (
     <Grid item xs={6} md={props.window === 'small'? 3:4}>
       <Card style={{
-        transform: isHovering? 'scale(1.03) translateY(-5px)':'',
+        boxShadow: isHovering? '1px 2px 9px rbga(0,0,0,0.2)':'',
+        transform: isHovering? 'scale(1.02) translateY(-3px)':'',
         transition: 'transform 0.1s ease-in-out'
-        }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        }} variant='outlined' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <CardMedia 
           component='img'
           height={props.window === 'small'? '300px':'400px'}
@@ -29,7 +30,7 @@ export default function NFTCard(props) {
                 {props.sell_orders.reduce((acc, cur) =>{
                   if(cur.current_price > acc) return cur.current_price
                   else return cur.current_price;
-                  //web3 라이브러리 적용 필요 (fromWdi)
+                  //web3 라이브러리 적용 필요 (fromWei)
                   },0)/1000000000000000000
                 }
                 </div>:''}
