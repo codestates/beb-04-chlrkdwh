@@ -7,6 +7,9 @@ import ConnectWallet from './Components/ConnectWallet';
 
 import styles from './App.module.css'
 import MetaMaskLogin from './Components/MetaMaskLogin';
+import  Home  from './Pages/Home'
+import Explore from './Pages/Explore';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
 
@@ -21,7 +24,14 @@ function App() {
       <div className="App">
         <PrimarySearchAppBar />
         <div className={styles.appBody}>
-        <ConnectWallet metaMask={MetaMaskLogin}></ConnectWallet>
+        {/* <ConnectWallet metaMask={MetaMaskLogin}></ConnectWallet> */}
+        {/* <Explore></Explore> */}
+        <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<Home/>}/>
+              <Route path="explore" element={<Explore/>}/>
+          </Routes>
+        </BrowserRouter>
         
 
         </div>
