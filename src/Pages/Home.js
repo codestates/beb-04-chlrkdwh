@@ -12,7 +12,7 @@ export default function Home() {
   const callImage = () => {
     const options = {
       method: 'GET',
-      url: 'https://testnets-api.opensea.io/api/v1/assets?order_by=sale_price&order_direction=asc&offset=0&limit=1&include_orders=false'
+      url: 'https://testnets-api.opensea.io/api/v1/assets?order_by=sale_date&order_direction=desc&offset=0&limit=1&include_orders=false'
     }
     axios.request(options)
       .then((res) => {
@@ -23,10 +23,10 @@ export default function Home() {
   return (
     <div className='home' >
       <Box style={{height: '500px', marginBottom: '20px'}}>
-        <div style={{height: '90%', backgroundPosition:'center', backgroundImage:`url(${imgUrl})`, backgroundSize: 'cover', backgroundRepeat:'no-repeat', filter:'blur(16px)'}}></div>
+        <div style={{height: '90%', backgroundPosition:'center', backgroundImage:`url(${imgUrl})`, backgroundSize: 'cover', backgroundRepeat:'no-repeat', filter:'blur(20px)'}}></div>
         <Grid container justifyContent="center" spacing={2} gap={5} mt={5} style={{zIndex: '2', position: 'absolute', top: '20%', left:'0%'}}>
-          <Grid item xs={5} mt={5}>
-            <Typography variant='h4' component='div' gutterBottom mt={8}>
+          <Grid item xs={10} md={5}>
+            <Typography variant='h4' component='div' gutterBottom>
             Discover, collect, and 
             sell extraordinary NFTs
             </Typography>
@@ -41,13 +41,16 @@ export default function Home() {
             Learn more about OpenSea
             </Typography>
           </Grid>
-          <Grid item xs={5}>
-            <Card >
-              <CardMedia 
-                component='img'
-                image={imgUrl}
-              />
-            </Card>
+          <Grid item xs={10} md={5} spacing={2}>
+            <Box display='flex' justifyContent='center' alignItems='center'>
+              <Card sx={{maxWidth:'400px'}}>
+                <CardMedia 
+                  component='img'
+                  image={imgUrl}
+                  sx={{minHeight:'200px'}}
+                />
+              </Card>
+            </Box>
           </Grid>
         </Grid>
       </Box>
