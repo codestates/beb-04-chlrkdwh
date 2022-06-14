@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
         <UpNavBar/>
-        <Home />
+        <Explore />
     <footer>
     </footer>
     </div>
