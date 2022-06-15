@@ -18,6 +18,7 @@ export default function Explore() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFilter, setIsFilter] = useState(false);
   useEffect(() => {
     callNFTs();
   }, [listing, page, ])
@@ -91,6 +92,11 @@ export default function Explore() {
     setIsDrawerOpen(open);
   }
 
+  const handleFilter = () => {
+    if(isFilter) setIsFilter(false)
+    else setIsFilter(true);
+  }
+
   const handleModal = (open, key) => {
     setIsModalOpen(open);
     if(open){
@@ -130,11 +136,11 @@ export default function Explore() {
         </Toolbar>
       {isLoading ? <Loading />: ''}
         <Box sx={{display: 'flex'}}>
-          <ExploreDrawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}/>
+          <ExploreDrawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} isFilter={isFilter} handleFilter={handleFilter} />
           <Box>
             <Grid container spacing={2} sx={{px:2}}>
               {nfts.map((el, idx) => {
-                return <NFTCard key={idx} idx={idx} window={window} collection_name={el.collection_name} name={el.name} image_url={el.image_url} sell_orders={el.sell_orders} last_sale={el.last_sale} handleModal={handleModal}/>
+                return <NFTCard key={idx} idx={idx} window={window} collection_name={el.collection_name} name={el.name} image_url={el.image_url} sell_orders={el.sell_orders} last_sale={el.last_sale} handleModal={handleModal} isFilter={isFilter}/>
               })}
             </Grid>
               <ExploreModal isModalOpen={isModalOpen} handleModal={handleModal} modalData={modalData}/>

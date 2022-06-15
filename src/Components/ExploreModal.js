@@ -21,7 +21,7 @@ export default function ExploreModal(props) {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           NFT Information
         </Typography>
-        <img src={data.image_url} style={{maxWidth:'200px', maxHeight: '200px', margin:'10px'}} />
+        <img src={data.image_url} style={{maxWidth:'200px', maxHeight: '200px', margin:'10px'}} alt="image null" />
         <List>
           <ListItem>
             <ListItemText
@@ -82,8 +82,8 @@ export default function ExploreModal(props) {
             <div style={{height:'70px', overflowY:'scroll'}}>
             {data.traits.length === 0 ? <ListItemText
               secondary="Null"
-            />: data.traits.map((el) => 
-              <ListItemText sx={{pr:8}} primary={el.trait_type} secondary={el.value} />
+            />: data.traits.map((el, idx) => 
+              <ListItemText key={idx} sx={{pr:8}} primary={el.trait_type} secondary={el.value} />
               )}
             </div>
           </ListItem>

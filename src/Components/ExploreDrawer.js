@@ -18,9 +18,9 @@ export default function ExploreDrawer(props) {
               </AccordionSummary>
               <AccordionDetails>
                 <List>
-                  {['Order Exist'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                      <FormControlLabel control={<Checkbox/>} label={text}/>
+                  {['Order Exist'].map((el, idx) => (
+                    <ListItem key={el} disablePadding>
+                      <FormControlLabel control={<Checkbox onChange={props.handleFilter} checked={props.isFilter} />} label={el}/>
                     </ListItem>
                   ))}
                 </List>
