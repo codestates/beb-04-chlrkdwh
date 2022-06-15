@@ -12,7 +12,7 @@ export default function NFTCard(props) {
         boxShadow: isHovering? '1px 2px 9px rbga(0,0,0,0.2)':'',
         transform: isHovering? 'scale(1.02) translateY(-3px)':'',
         transition: 'transform 0.1s ease-in-out'
-        }} variant='outlined' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        }} variant='outlined' onClick={() => props.handleModal(true, props.idx)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <CardMedia 
           component='img'
           height={props.window === 'small'? '300px':'400px'}
@@ -27,14 +27,14 @@ export default function NFTCard(props) {
             <Box sx={{flexGrow:1}} />
             <Box>
               {props.sell_orders !== null ? <div style={{fontSize:'13px', fontWeight:'bold'}}>
-                {props.sell_orders.reduce((acc, cur) =>{
+                order {props.sell_orders.reduce((acc, cur) =>{
                   if(cur.current_price > acc) return cur.current_price
                   else return cur.current_price;
                   //web3 라이브러리 적용 필요 (fromWei)
-                  },0)/1000000000000000000
+                  },0)/10 ** 18
                 }
                 </div>:''}
-              <div style={{fontSize:'13px', fontWeight:'bold'}}>{props.total_price/1000000000000000000}</div>
+              {props.last_sale === null ? '':<div style={{fontSize:'13px', fontWeight:'bold'}}>last {props.last_sale.total_price/10**18}</div>}
             </Box>
           </Box>
         </CardContent>
