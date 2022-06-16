@@ -18,7 +18,11 @@ export default function OpenSeaAppBar() {
     //     color: 'white',
     // })
 
-
+    const [search, setSearch] = React.useState('');
+    const handleSearch = (e) => {
+        console.log(e.target.value)
+        setSearch(e.target.value)
+    }
 
 
 
@@ -35,7 +39,9 @@ export default function OpenSeaAppBar() {
                     component="form"
                     elevation={0}
                     variant="outlined"
-                    sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', minWidth: '35vw', maxWidth: '80vw', ml: 2 }}>
+                    sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', minWidth: '35vw', maxWidth: '80vw', ml: 2 }}
+                    onChange={handleSearch}
+                    >
                     <Search />
                     <InputBase
                         sx={{ ml: 1, flex: 1 }}

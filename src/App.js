@@ -10,6 +10,7 @@ import MetaMaskLogin from './Components/MetaMaskLogin';
 import  Home  from './Pages/Home'
 import Explore from './Pages/Explore';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Create from './Pages/Create';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Routes>
               <Route path="/" element={<Home/>}/>
               <Route path="explore" element={<Explore/>}/>
+              <Route path="create" element={<Create />} />
           </Routes>
         </BrowserRouter>
         </div>
