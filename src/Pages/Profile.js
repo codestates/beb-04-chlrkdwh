@@ -1,13 +1,14 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom"
+import Login from "./Login";
 
 const Profile = (props) => {
-    console.log(props);
+    // console.log(props);
     const navigate = useNavigate();
 
     return (
         <>
             {
-                props.isLogined ? <div>Profile Page</div> : <div>Not Loged In</div>
+                props.isLogined ? <div>Profile Page</div> : <Login />
             }
         </>
     )

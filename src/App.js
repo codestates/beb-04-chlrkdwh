@@ -36,8 +36,8 @@ function App() {
               <Route path="/explore" element={<Explore />} />
               <Route path='/stats' element={<Stats />} />
               <Route path='/profile' element={<Profile isLogined={isLogined} />}/>
-              <Route path='login' element={<Login />}/>
-              <Route path='create' element={<Create/>}/>
+              <Route path='/login' element={<Login />}/>
+              <Route path='/create' element={<Create isLogined={isLogined} />}/>
         </Routes>
             </div>
             <footer className={styles.appFooter}>

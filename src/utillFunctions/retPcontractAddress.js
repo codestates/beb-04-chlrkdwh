@@ -1,7 +1,7 @@
-const retContractAdrr = async (txHash, ethereum) =>{ 
+const retContractAdrr = async (txHash, ethereum, delay) =>{ 
     let ret = await ethereum.request({ method: 'eth_getTransactionReceipt', params: [txHash] });
     let count = 0;
-    while(count < 10 && ret === null){
+    while(count < delay && ret === null){
         await new Promise(res=>setTimeout(()=>{res(count++)},1000));
         ret = await ethereum.request({ method: 'eth_getTransactionReceipt', params: [txHash] });
     
@@ -11,9 +11,11 @@ const retContractAdrr = async (txHash, ethereum) =>{
 
 // data : 만들 컨트랙트의 bytecode
 // ethProxy : window.ethereum 객체. 메타마스크 설치되어있으면 자동으로 있음.
+
 // return : 컨트랙트의 address를 프로미스의 형태로 반납해줌.
-const retPcontractAddress = async (data, ethProxy) => {
-    const ethereum = ethProxy;
+const retPcontractAddress = async (data, ethProxy, delay=20) => {
+    const ethereum = ethProxy ?? false;
+    if(!ethereum) return false;
     const txHash = await ethereum.request({
         method: 'eth_sendTransaction', params: [{
             from: ethereum.selectedAddress,
@@ -21,7 +23,7 @@ const retPcontractAddress = async (data, ethProxy) => {
         }]
     })
 
-    const myReceipt = await retContractAdrr(txHash, ethereum);
+    const myReceipt = await retContractAdrr(txHash, ethereum, delay);
     if(myReceipt){
         return myReceipt.contractAddress;
     }

@@ -1,4 +1,4 @@
-import { Grid, Toolbar, IconButton, FormControl, Select, MenuItem, ToggleButton, ToggleButtonGroup, Stack, Pagination} from '@mui/material';
+import { Grid, Toolbar, IconButton, FormControl, Select, MenuItem, ToggleButton, ToggleButtonGroup, Stack, Pagination, Button} from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { FilterList, GridOn, Window } from '@mui/icons-material';
@@ -74,6 +74,11 @@ export default function Explore() {
           <IconButton >
             <FilterList size='large'/>
           </IconButton>
+          <Button>
+            change to my NFT contract
+          </Button>
+            
+          
           <Box sx={{flexGrow:1}} />
           <Box sx={{display: {xs: 'none', md: 'flex'}}} >
             <FormControl sx={{m:1, minWidth: 120}}>

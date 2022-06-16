@@ -20,6 +20,7 @@ export default function OpenSeaAppBar(props) {
 
     const  handleClickAccountCircle = ()=>{
          navigate(`/profile`, {state:{isLogined: isLogined}});
+         setTabVal(false);
     }
 
 
@@ -69,9 +70,9 @@ export default function OpenSeaAppBar(props) {
                         <Tab label="Explore" onClick={()=>{ setTabVal('explore'); navigate('/explore'); }} value='explore'></Tab>
                         <Tab label="Stats" onClick={()=>{ setTabVal('stats'); navigate('/stats'); }} value='stats'></Tab>
                         <Tab label="Resources"></Tab>
-                        <Tab label="Create" onClick={()=>{ setTabVal('create'); navigate('/create'); }} value='create'></Tab>
-
+                        <Tab label="Create" onClick={()=>{ setTabVal('create'); navigate(`/create`, {state:{isLogined: isLogined}}) }} value='create'></Tab>
                     </Tabs>
+
 
                     <IconButton sx={{ display: { xs: 'none', md: 'flex' } }} onClick={handleClickAccountCircle}>
                         <AccountCircleOutlined sx={{ color: blueGrey[500] }} />
