@@ -7,7 +7,7 @@ import { blueGrey } from '@mui/material/colors';
 import { Box } from '@mui/system';
 
 import RightDrawer from './RightDrawer';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function OpenSeaAppBar(props) {
@@ -58,7 +58,6 @@ export default function OpenSeaAppBar(props) {
                     elevation={0}
                     variant="outlined"
                     sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', minWidth: '35vw', maxWidth: '80vw', ml: 2 }}
-                    onChange={handleSearch}
                     >
                     <Search />
                     <InputBase
@@ -69,7 +68,7 @@ export default function OpenSeaAppBar(props) {
 
                 <Box sx={{ display: 'flex' }}>
                     <Tabs value={tabVal}  sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <Tab label="Explore" onClick={()=>{ setTabVal('explore'); navigate('/explore'); }} value='explore'></Tab>
+                        <Tab label="Explore" onClick={()=>{ setTabVal('explore'); navigate('/explore', {state:{isLogined: isLogined}}) }} value='explore'></Tab>
                         <Tab label="Stats" onClick={()=>{ setTabVal('stats'); navigate('/stats'); }} value='stats'></Tab>
                         <Tab label="Resources"></Tab>
                         <Tab label="Create" onClick={()=>{ setTabVal('create'); navigate(`/create`, {state:{isLogined: isLogined}}) }} value='create'></Tab>

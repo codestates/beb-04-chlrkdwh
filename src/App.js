@@ -33,7 +33,7 @@ function App() {
             <div className={styles.appBody}>
         <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/explore" element={<Explore />} />
+              <Route path="/explore" element={<Explore isLogined={isLogined} />} />
               <Route path='/stats' element={<Stats />} />
               <Route path='/profile' element={<Profile isLogined={isLogined} />}/>
               <Route path='/login' element={<Login />}/>

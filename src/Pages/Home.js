@@ -9,7 +9,6 @@ export default function Home() {
   useEffect(()=> {
     callImage();
   },[])
-
   const callImage = () => {
     const options = {
       method: 'GET',
@@ -36,11 +35,11 @@ export default function Home() {
             Discover, collect, and 
             sell extraordinary NFTs
             </Typography>
-            <Typography variant='h6' component='div' gutterBottom>
+            <Typography variant='h6' component='div' gutterBottom mb={2}>
             OpenSea is the world's first and largest NFT marketplace
             </Typography>
-            <Stack direction='row' spacing={2} justifyContent='center' >
-              <Button variant='contained' onClick={()=>{navigate('/explore')}}>Explore</Button>
+            <Stack direction='row' spacing={2} justifyContent='start' >
+              <Button variant='contained' onClick={()=>{navigate('/explore', )}}>Explore</Button>
               <Button variant='contained'>Create</Button>
             </Stack>
             <Typography variant='h6' component='div' mt={2}>
