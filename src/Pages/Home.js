@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Stack, Typography, Box, Grid, CardMedia, Card } from '@mui/material'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 export default function Home() {
@@ -34,7 +35,9 @@ export default function Home() {
             OpenSea is the world's first and largest NFT marketplace
             </Typography>
             <Stack direction='row' spacing={2} justifyContent='center' >
-              <Button variant='contained'>Explore</Button>
+              <Link to='explore'>
+                <Button variant='contained'>Explore</Button>
+              </Link>
               <Button variant='contained'>Create</Button>
             </Stack>
             <Typography variant='h6' component='div' mt={2}>
