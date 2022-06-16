@@ -69,7 +69,7 @@ export default function OpenSeaAppBar(props) {
                         <Tab label="Explore" onClick={()=>{ setTabVal('explore'); navigate('/explore'); }} value='explore'></Tab>
                         <Tab label="Stats" onClick={()=>{ setTabVal('stats'); navigate('/stats'); }} value='stats'></Tab>
                         <Tab label="Resources"></Tab>
-                        <Tab label="Create"></Tab>
+                        <Tab label="Create" onClick={()=>{ setTabVal('create'); navigate('/create'); }} value='create'></Tab>
 
                     </Tabs>
 

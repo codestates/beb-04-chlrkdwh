@@ -1,15 +1,17 @@
-import logo from './logo.svg';
-import PrimarySearchAppBar from './Components/UpNavBar';
-import Theme from './Pages/Test'
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 
+//Pages&Components load
+import PrimarySearchAppBar from './Components/UpNavBar';
 import styles from './App.module.css'
 import Home from './Pages/Home'
 import Explore from './Pages/Explore';
 import Stats from './Pages/Stats'
 import Profile from './Pages/Profile'
 import Login from './Pages/Login'
+import Create from './Pages/Create';
+
+//React & react modules
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -35,6 +37,7 @@ function App() {
               <Route path='/stats' element={<Stats />} />
               <Route path='/profile' element={<Profile isLogined={isLogined} />}/>
               <Route path='login' element={<Login />}/>
+              <Route path='create' element={<Create/>}/>
         </Routes>
             </div>
             <footer className={styles.appFooter}>
