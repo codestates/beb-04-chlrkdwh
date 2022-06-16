@@ -10,6 +10,8 @@ import ExploreModal from '../Components/ExploreModal';
 import Loading from '../Components/Loading';
 import ExploreToolbar from '../Components/ExploreToolbar';
 
+import contractAddress from '../SmartContract/contractAddress';
+
 export default function Explore() {
   const [show, setShow] = useState([])
   const [nfts, setNfts] = useState([]);
@@ -23,6 +25,8 @@ export default function Explore() {
   const [modalData, setModalData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
+
+  
   
   useEffect(() => {
     callNFTs();
@@ -85,7 +89,7 @@ export default function Explore() {
     if(listing === ''){
       options = {
         method: 'GET',
-        url: 'https://testnets-api.opensea.io/api/v1/assets?asset_contract_address=0xC70AA59E111eA446628AC072921c7CB852DFb37c&order_direction=desc&offset=0&limit=50&include_orders=true'
+        url: `https://testnets-api.opensea.io/api/v1/assets?asset_contract_address=${contractAddress}&order_direction=desc&offset=0&limit=50&include_orders=true`
       };
     }else{
       return;

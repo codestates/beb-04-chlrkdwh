@@ -18,6 +18,8 @@ export default function OpenSeaAppBar(props) {
 
     const navigate = useNavigate();
 
+    const handleSearch = ()=>{};
+
     const  handleClickAccountCircle = ()=>{
          navigate(`/profile`, {state:{isLogined: isLogined}});
          setTabVal(false);
