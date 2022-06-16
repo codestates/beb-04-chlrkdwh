@@ -5,3 +5,9 @@
 .walletItem {
     margin: 10px
 } */
+
+.flexCenter {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
