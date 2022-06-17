@@ -53,6 +53,12 @@ export default function ExploreModal(props) {
               secondary={data.asset_contract === null ? 'Null': data.asset_contract.schema_name}
             />
           </ListItem>
+          {data.price !== null &&data.price > 0 ? <ListItem>
+            <ListItemText
+              primary="Price (You Can Buy Right Now)"
+              secondary={data.price === null ? 'Null': parseFloat(data.price/10**18)}
+            />
+          </ListItem>:''}
           <ListItem>
             <ListItemText
               primary="Highest Orders"

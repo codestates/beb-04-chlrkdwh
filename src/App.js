@@ -1,16 +1,19 @@
-import logo from './logo.svg';
-import PrimarySearchAppBar from './Components/UpNavBar';
-import Theme from './Pages/Test'
 import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
-import ConnectWallet from './Components/ConnectWallet';
 
+//Pages&Components load
+import PrimarySearchAppBar from './Components/UpNavBar';
 import styles from './App.module.css'
-import MetaMaskLogin from './Components/MetaMaskLogin';
-import  Home  from './Pages/Home'
+import Home from './Pages/Home'
 import Explore from './Pages/Explore';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Stats from './Pages/Stats'
+import Profile from './Pages/Profile'
+import Login from './Pages/Login'
 import Create from './Pages/Create';
+
+//React & react modules
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 
 function App() {
 
@@ -20,25 +23,28 @@ function App() {
     }
   })
 
+  const [isLogined, setIsLogined] = useState(false);
+
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <PrimarySearchAppBar />
-        <div className={styles.appBody}>
-        {/* <ConnectWallet metaMask={MetaMaskLogin}></ConnectWallet> */}
-        {/* <Explore></Explore> */}
-        <BrowserRouter>
-          <Routes>
-              <Route path="/" element={<Home/>}/>
-              <Route path="explore" element={<Explore/>}/>
-              <Route path="create" element={<Create />} />
-          </Routes>
-        </BrowserRouter>
-        </div>
-        <footer className={styles.appFooter}>
-        </footer>
-      </div>
-    </ThemeProvider>
+      <BrowserRouter>
+          <div className="App">
+            <PrimarySearchAppBar isLogined={isLogined} setIsLogined={setIsLogined} />
+            <div className={styles.appBody}>
+        <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/explore" element={<Explore isLogined={isLogined} />} />
+              <Route path='/stats' element={<Stats />} />
+              <Route path='/profile' element={<Profile isLogined={isLogined} />}/>
+              <Route path='/login' element={<Login />}/>
+              <Route path='/create' element={<Create isLogined={isLogined} />}/>
+        </Routes>
+            </div>
+            <footer className={styles.appFooter}>
+            </footer>
+          </div>
+      </BrowserRouter>
+    </ThemeProvider >
 
   );
 }

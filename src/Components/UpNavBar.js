@@ -1,46 +1,63 @@
 import styles from './UpNavBar.module.css'
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import { IconButton, InputBase, Toolbar, Typography, Tabs, Tab, Paper } from '@mui/material';
+import { IconButton, InputBase, Toolbar, Typography, Tabs, Tab, Paper, Button } from '@mui/material';
 import { AccountBalanceWalletOutlined, AccountCircleOutlined, Search, Menu } from '@mui/icons-material';
 import { blueGrey } from '@mui/material/colors';
 import { Box } from '@mui/system';
-import styled from '@emotion/styled';
 
 import RightDrawer from './RightDrawer';
-import zIndex from '@mui/material/styles/zIndex';
+import { useNavigate } from 'react-router-dom';
 
 
-export default function OpenSeaAppBar() {
+export default function OpenSeaAppBar(props) {
 
-    // const whiteAppBar = styled(AppBar, {
-    //     fontFamily: ['Poppins', 'sans-serif'],
-    //     color: 'white',
-    // })
+    const [tabVal, setTabVal] = React.useState(false);
+    let isLogined = props.isLogined;            // 기본값은 false, 로그인 됬을 시 account 주소를 넣자.
+    const setIsLogined = props.setIsLogined;
 
-    const [search, setSearch] = React.useState('');
-    const handleSearch = (e) => {
-        console.log(e.target.value)
-        setSearch(e.target.value)
+    const navigate = useNavigate();
+
+    const  handleClickAccountCircle = ()=>{
+         navigate(`/profile`, {state:{isLogined: isLogined}});
+         setTabVal(false);
     }
 
+
+    const handleAccountsChanged = (accounts)=>{
+        // console.log("acc changed", accounts)
+        if(accounts.length === 0){
+            setIsLogined(false);
+            // location.reload();
+        }
+        else if(accounts[0] !== isLogined){
+            setIsLogined(accounts[0]);
+        }
+    }
+
+    React.useEffect(()=>{
+        const { ethereum } = window;
+        if (ethereum && ethereum.isMetaMask) {
+            ethereum.on('accountsChanged',handleAccountsChanged)
+            ethereum.request({method: 'eth_accounts'}).then(accounts=>{ if(accounts.length>0) {setIsLogined(accounts[0]); }}) 
+        }          
+    },[]);
 
 
     return (
         <AppBar sx={{ backgroundColor: `white`, boxShadow: 2 }}>
-            <Toolbar sx={{justifyContent:'space-between'}}>
-                <div className={styles.flexDiv}>
-                <Box component='img' src='https://static.opensea.io/Logos/opensea-pride.svg' sx={{ height: '40px' }}></Box>
-                <Typography variant="h5" component="div" color='black'>OpenSea</Typography>
-                </div>
-                { /* <Icon><img src={openSeaSvg}/></Icon> */}
+            <Toolbar sx={{ justifyContent: 'space-between' }}>
+                <Button  onClick={()=>{navigate("/")}}>                   
+                        <Box component='img' src='https://static.opensea.io/Logos/opensea-pride.svg' sx={{ height: '40px' }}></Box>
+                        <Typography variant="h6" component="div" color='black'>OpenSea</Typography>                    
+                </Button>
+
                 <Paper
                     id={styles.shadowPaper}
                     component="form"
                     elevation={0}
                     variant="outlined"
                     sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', minWidth: '35vw', maxWidth: '80vw', ml: 2 }}
-                    onChange={handleSearch}
                     >
                     <Search />
                     <InputBase
@@ -48,23 +65,21 @@ export default function OpenSeaAppBar() {
                         placeholder='Search items, collections, and accounts'
                     />
                 </Paper>
-                {/* <Box sx={{borderBottom:1, borderColor:'divider'}}> */}
-                <Box sx={{display:'flex'}}>
-                    <Tabs sx={{display:{xs:'none' ,md: 'flex'}}}>
-                        <Tab label="Explore"></Tab>
-                        <Tab label="Stats"></Tab>
+
+                <Box sx={{ display: 'flex' }}>
+                    <Tabs value={tabVal}  sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <Tab label="Explore" onClick={()=>{ setTabVal('explore'); navigate('/explore', {state:{isLogined: isLogined}}) }} value='explore'></Tab>
+                        <Tab label="Stats" onClick={()=>{ setTabVal('stats'); navigate('/stats'); }} value='stats'></Tab>
                         <Tab label="Resources"></Tab>
-                        <Tab label="Create"></Tab>
-                        {/* <Tab><Typography fontFamily='Poppins' variant="h6" component="div" sx={{ ml: 2, mr: 2 }}>Stats</Typography></Tab>
-                    <Tab><Typography fontFamily='Poppins' variant="h6" component="div" sx={{ ml: 2, mr: 2 }}>Resources</Typography></Tab>
-                <Tab><Typography fontFamily='Poppins' variant="h6" component="div" sx={{ ml: 2, mr: 2 }}>Create</Typography></Tab> */}
+                        <Tab label="Create" onClick={()=>{ setTabVal('create'); navigate(`/create`, {state:{isLogined: isLogined}}) }} value='create'></Tab>
                     </Tabs>
-                    {/* </Box> */}
-                    <IconButton sx={{ display:{ xs:'none', md: 'flex' } }}>
-                        <AccountCircleOutlined sx={{ color: blueGrey[500]}} />
+
+
+                    <IconButton sx={{ display: { xs: 'none', md: 'flex' } }} onClick={handleClickAccountCircle}>
+                        <AccountCircleOutlined sx={{ color: blueGrey[500] }} />
                     </IconButton>
-                    <RightDrawer statusImage={AccountBalanceWalletOutlined} customSx={{ display:{ xs:'none', md: 'flex' } }}  customTop={{top:'64px'}}  />
-                    <IconButton sx={{ display:{ xs:'flex' ,md: 'none' } }}>
+                    <RightDrawer isLogined={isLogined} statusImage={AccountBalanceWalletOutlined} customSx={{ display: { xs: 'none', md: 'flex' } }} customTop={{ top: '64px' }} />
+                    <IconButton sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <Menu sx={{ color: blueGrey[500] }} />
                     </IconButton>
                 </Box>

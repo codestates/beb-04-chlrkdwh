@@ -1,23 +1,22 @@
 import React from 'react';
-import { Divider, Paper } from "@mui/material";
-// import {  } from "@mui/system";
+import { Button, Divider, Paper } from "@mui/material";
+import MetaMaskLogin from './MetaMaskLogin';
 
 import styles from './ConnectWallet.module.css'
 function ConnectWallet(props) {
-    // console.log(props);
-    const metaMask = props.metaMask;
-
-
+    let isLogined = props.isLogined ?? false;
+  
     return (
         // <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center',  height: '100vh', width:'100vw'}}>
         <div style={{ margin: '15px' }}>
             <div style={{ top: '64px' }}>
                 <div>
-                    <Paper variant="outlined" sx={{ borderRadius: '16px' }} style={{ height: '100%', width: '100%' }} className={styles.walletContainer}>
-                        <div className={styles.walletItem}>{ metaMask({cb:()=>{}}) }</div>
+                    <Paper variant="outlined" sx={{ borderRadius: '12px' }} style={{ height: '100%', width: '100%' }} className={styles.walletContainer}>
+                        <div className={styles.walletItem}><MetaMaskLogin isLogined={isLogined}/></div>
                         <Divider />
-                        <div>Coinbase</div>
+                        <Button disabled={true}>Coinbase</Button>
                         <Divider />
+                        <div className={styles.flexCenter}>Show more options</div>
                     </Paper>
                 </div>
             </div>

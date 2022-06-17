@@ -1,32 +1,35 @@
 import React, { useState } from 'react'
 import { Grid, Card, CardMedia, Box, Typography, Divider, CardContent, CardActions, Button, IconButton} from '@mui/material'
 import { FavoriteBorder } from '@mui/icons-material'
+import Buy from './Buy';
 
 export default function NFTCard(props) {
   const [isHovering, setIsHovering] = useState(false);
   const handleMouseEnter = () =>{ setIsHovering(true)}
   const handleMouseLeave = () => { setIsHovering(false)}
-  const disable = props.isFilter && props.sell_orders === null;
+  const disable = props.isFilter && ((props.price === undefined && props.sell_orders === null )|| props.price === 0);
   const textStyle = {
     fontSize: '14px',
     fontWeight: 'bold',
     textDecoration: disable ? 'line-through' : ''
   }
+
   return (
-    <Grid item xs={6} md={props.window === 'small'? 3:4}>
+    <Grid item xs={6} md={props.viewing === 'small'? 3:4}>
       <Card style={{
         boxShadow: isHovering? '1px 2px 9px rbga(0,0,0,0.2)':'',
         transform: isHovering? 'scale(1.02) translateY(-3px)':'',
         transition: 'transform 0.1s ease-in-out'
-        }} variant='outlined' onClick={() => props.handleModal(true, props.idx)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        }} variant='outlined' >
         {disable ? <CardMedia 
           component='img'
-          height={props.window === 'small'? '300px':'400px'}
+          height={props.viewing === 'small'? '300px':'400px'}
           style={{ backgroundImage:`url(${props.image_url})`, backgroundSize: 'cover', backgroundRepeat:'no-repeat', filter:'blur(15px)'}}
         /> :
         <CardMedia 
+        onClick={() => props.handleModal(true, props.idx)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
           component='img'
-          height={props.window === 'small'? '300px':'400px'}
+          height={props.viewing === 'small'? '300px':'400px'}
           image={props.image_url}
         /> }
         <CardContent sx={{height:'55px', mb:1.5}}>
@@ -51,7 +54,7 @@ export default function NFTCard(props) {
         </CardContent>
         <Divider />
         <CardActions>
-          {props.sell_orders !== null && isHovering ? <Button variant='text' sx={{fontWeight:'bold'}}>Buy Now</Button>:''}
+          {(props.sell_orders !== null || props.price > 0) ? <Buy price={props.price} token_id={props.token_id} />:''}
           <Box sx={{flexGrow:1}} />
           <IconButton>
             <FavoriteBorder sx={{height:'20px'}} />

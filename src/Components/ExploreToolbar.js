@@ -1,15 +1,15 @@
 import React from 'react'
-import { Toolbar, IconButton, Button, FormControl, InputLabel, Select, MenuItem, ToggleButtonGroup, ToggleButton, Switch} from '@mui/material'
+import { Toolbar, IconButton, FormControl, FormControlLabel, InputLabel, Select, MenuItem, ToggleButtonGroup, ToggleButton, Switch} from '@mui/material'
 import { Box } from '@mui/system'
 import { FilterList, GridOn, Window } from '@mui/icons-material'
 
 export default function ExploreToolbar(props) {
   return (
       <Toolbar variant='dense' sx={{my:2}}>
-        <IconButton onClick={props.toggleDrawer(true)} >
+        <IconButton onClick={props.toggleDrawer(true)} sx={{mr:2}} >
           <FilterList size='large'/>
         </IconButton>
-        <Switch checked={props.ismyNfts} onChange={props.handleSwitch} />
+        <FormControlLabel control={<Switch checked={props.ismyNfts} onChange={props.handleSwitch} />} label="cozNFT" />
         <Box sx={{flexGrow:1}} />
         <Box sx={{display: {xs: 'none', md: 'flex'}}} >
           <FormControl sx={{m:1, minWidth: 120}}>
@@ -22,11 +22,11 @@ export default function ExploreToolbar(props) {
               <MenuItem value='oldest'>Oldest Sale</MenuItem>
             </Select>
           </FormControl>
-          <ToggleButtonGroup value={props.window} exclusive onChange={props.handleWindow}>
+          <ToggleButtonGroup value={props.viewing} exclusive onChange={props.handleViewing}>
             <ToggleButton value="small">
               <GridOn />
             </ToggleButton>
-            <ToggleButton value="window">
+            <ToggleButton value="big">
               <Window />
             </ToggleButton>
           </ToggleButtonGroup>
