@@ -8,6 +8,7 @@ import axios from 'axios';
 import contractAbi from '../SmartContract/contractAbi';
 import contractAddress from '../SmartContract/contractAddress';
 import ProfileTab from '../Components/ProfileTab';
+import Login from './Login';
 
 
 
@@ -18,78 +19,90 @@ const Profile = (props) => {
   const myContract = new ethers.Contract(contractAddress, contractAbi, provider);
 
   // const [totalNumOfNFT, setTotalNumOfNFT] = React.useState(0);
-  const [NFTInfos,setNFTInfos ] = React.useState([]);
+  const [NFTInfos, setNFTInfos] = React.useState([]);
   const [value, setValue] = React.useState('one');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const handleAllowBuy = async (inputVal, tokenId)=>{
+  const handleAllowBuy = async (inputVal, tokenId) => {
     console.log(inputVal, tokenId)
-    const myContractWithSigner = await provider.send("eth_requestAccounts", []).then( _=>provider.getSigner()).then(signer=>myContract.connect(signer));
+    const myContractWithSigner = await provider.send("eth_requestAccounts", []).then(_ => provider.getSigner()).then(signer => myContract.connect(signer));
     myContractWithSigner.functions.allowBuy(tokenId, inputVal);
 
   }
 
-  React.useEffect(() => {
-    (async () => {
-      if (window.ethereum) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const myContract = new ethers.Contract(contractAddress, contractAbi, provider);
-        // await myContract.totalSupply().then(ret => setTotalNumOfNFT(parseInt(ret['_hex']))); //.then(console.log)
+  async function handleOnChangeWallet (){
+    if (window.ethereum && isLogined !== false) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const myContract = new ethers.Contract(contractAddress, contractAbi, provider);
+      // await myContract.totalSupply().then(ret => setTotalNumOfNFT(parseInt(ret['_hex']))); //.then(console.log)
 
-        // const retArr = Array(totalNumOfNFT).fill(false);
-        // for (let i = 0; i < totalNumOfNFT; i++) {
-        //   (myContract.tokenOfOwnerByIndex(window.ethereum.selectedAddress, i))
-        // }
-        // retArr.map((e,idx)=>{return myContract.tokenOfOwnerByIndex(window.ethereum.selectedAddress, idx)});
-        const retArr = [];
+      // const retArr = Array(totalNumOfNFT).fill(false);
+      // for (let i = 0; i < totalNumOfNFT; i++) {
+      //   (myContract.tokenOfOwnerByIndex(window.ethereum.selectedAddress, i))
+      // }
+      // retArr.map((e,idx)=>{return myContract.tokenOfOwnerByIndex(window.ethereum.selectedAddress, idx)});
+      const retArr = [];
 
-        let idx = 0;
+      let idx = 0;
 
-        try{
-          while(1){
+      try {
+        while (1) {
           let tmp = await myContract.tokenOfOwnerByIndex(window.ethereum.selectedAddress, idx);
           retArr.push(parseInt(tmp['_hex']));
           idx++;
-          }
         }
-        catch(err){
-          console.log(err);
-        }
-            
-        console.log(retArr);
-        Promise.all(retArr.map(tokenid => myContract.tokenURI(tokenid)))
-        .then(arrs=>{
-          console.log("arrs",arrs);
-          return Promise.all(arrs.map(imgurl=>{
+      }
+      catch (err) {
+        console.log(err);
+      }
+
+      console.log(retArr);
+      Promise.all(retArr.map(tokenid => myContract.tokenURI(tokenid)))
+        .then(arrs => {
+          console.log("arrs", arrs);
+          return Promise.all(arrs.map(imgurl => {
             return axios({
               url: imgurl,
-              method:'get'
-            }).then(obj=>obj.data)
+              method: 'get'
+            }).then(obj => obj.data)
           }))
         })
-        .then(metadataInfos=>{
-          retArr.forEach((tokenid,idx)=>{
+        .then(metadataInfos => {
+          retArr.forEach((tokenid, idx) => {
             metadataInfos[idx].tokenId = tokenid;
           })
           return metadataInfos;
         })
         .then(setNFTInfos);
 
-        
-        // idx++;
+
+      // idx++;
 
 
 
-        // setGridInfoArr(retArr);
-        // console.log(retArr);
-        // const myContractWithSigner = await provider.send("eth_requestAccounts", []).then(_ => provider.getSigner()).then(signer => myContract.connect(signer));
-        // myContractWithSigner.functions.mintNFT(ethereum.selectedAddress, submitImage(inputs));
-        // myContract.name().then(console.log);
+      // setGridInfoArr(retArr);
+      // console.log(retArr);
+      // const myContractWithSigner = await provider.send("eth_requestAccounts", []).then(_ => provider.getSigner()).then(signer => myContract.connect(signer));
+      // myContractWithSigner.functions.mintNFT(ethereum.selectedAddress, submitImage(inputs));
+      // myContract.name().then(console.log);
+    }
+  };
+
+
+  React.useEffect(() => {
+    handleOnChangeWallet();
+    if(window.ethereum){
+      window.ethereum.on('accountsChanged',handleOnChangeWallet);
+    }
+
+    return ()=>{
+      if(window.ethereum){
+        window.ethereum.removeListener('accountsChanged',handleOnChangeWallet);
       }
-    })();
+    }
 
   }, []);
 
@@ -111,7 +124,10 @@ const Profile = (props) => {
     maxHeight: '100%',
   });
 
-  return (
+  return <>{ 
+    
+    isLogined ? 
+    
     <div>
       <Grid backgroundColor="yellowgreen" height="200px" width="600px"></Grid>
       <Typography variant='h5' component='div' gutterBottom>
@@ -190,7 +206,10 @@ const Profile = (props) => {
         </TabContext>
       </Box>
     </div >
-  );
+    
+    :
+    <Login/>
+    }</>;
 }
 
 export default Profile;

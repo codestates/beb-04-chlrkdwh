@@ -12,7 +12,10 @@ import ExploreToolbar from '../Components/ExploreToolbar';
 
 import contractAddress from '../SmartContract/contractAddress';
 
-export default function Explore() {
+export default function Explore(props) {
+  
+  const isLogin = props.isLogin ?? false;
+
   const [show, setShow] = useState([])
   const [nfts, setNfts] = useState([]);
   const [myNfts, setMyNfts] = useState([]);
