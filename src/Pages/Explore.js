@@ -11,19 +11,9 @@ import contractAddress from '../SmartContract/contractAddress';
 import contractAbi from '../SmartContract/contractAbi';
 import { ethers } from 'ethers';
 
-<<<<<<< HEAD
 
 export default function Explore(props) {
   
-=======
-import contractAddress from '../SmartContract/contractAddress';
-
-export default function Explore(props) {
-  
-  const isLogin = props.isLogin ?? false;
-
-  const [show, setShow] = useState([])
->>>>>>> dev1
   const [nfts, setNfts] = useState([]);
   const [myNfts, setMyNfts] = useState([]);
   const [ismyNfts, setIsmyNfts] = useState(false);
@@ -36,11 +26,6 @@ export default function Explore(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
 
-<<<<<<< HEAD
-=======
-  
-  
->>>>>>> dev1
   useEffect(() => {
     callNFTs();
     callMyNFTs();
