@@ -50,7 +50,7 @@ export default function OpenSeaAppBar(props) {
         <AppBar sx={{ backgroundColor: `white`, boxShadow: 2 }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Button  onClick={()=>{navigate("/")}}>                   
-                        <Box component='img' src='https://static.opensea.io/Logos/opensea-pride.svg' sx={{ height: '40px' }}></Box>
+                        <Box component='img' src='https://static.opensea.io/Logos/opensea-pride.svg' sx={{ height: '40px', mr:'10px' }}></Box>
                         <Typography variant="h6" component="div" color='black'>OpenSea</Typography>                    
                 </Button>
 

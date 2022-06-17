@@ -9,7 +9,7 @@ export default function ExploreToolbar(props) {
         <IconButton onClick={props.toggleDrawer(true)} sx={{mr:2}} >
           <FilterList size='large'/>
         </IconButton>
-        <FormControlLabel control={<Switch checked={props.ismyNfts} onChange={props.handleSwitch} />} label="cozNFT" />
+        <FormControlLabel control={<Switch checked={props.ismyNfts} onChange={props.handleSwitch} />} label="Chlrkdwh" />
         <Box sx={{flexGrow:1}} />
         <Box sx={{display: {xs: 'none', md: 'flex'}}} >
           <FormControl sx={{m:1, minWidth: 120}}>
