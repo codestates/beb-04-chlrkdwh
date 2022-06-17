@@ -14,6 +14,7 @@ import Create from './Pages/Create';
 //React & react modules
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
+import TestingPage from './Pages/TestingPage';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
               <Route path='/profile' element={<Profile isLogined={isLogined} />}/>
               <Route path='/login' element={<Login />}/>
               <Route path='/create' element={<Create isLogined={isLogined} />}/>
+              <Route path='/test' element={<TestingPage isLogined={isLogined}/>}/>
         </Routes>
             </div>
             <footer className={styles.appFooter}>
