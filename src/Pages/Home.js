@@ -40,7 +40,7 @@ export default function Home() {
             </Typography>
             <Stack direction='row' spacing={2} justifyContent='start' >
               <Button variant='contained' onClick={()=>{navigate('/explore', )}}>Explore</Button>
-              <Button variant='contained'>Create</Button>
+              <Button variant='contained' onClick={()=>{navigate('/create', )}}>Create</Button>
             </Stack>
             <Typography variant='h6' component='div' mt={2}>
             Learn more about OpenSea
